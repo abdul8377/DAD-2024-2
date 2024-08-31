@@ -5,6 +5,5 @@
     <mapping directory="$PROJECT_DIR$/ms-catalogo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-config-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-product" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ms-registry-server" vcs="Git" />
   </component>
 </project>
