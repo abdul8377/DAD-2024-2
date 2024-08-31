@@ -5,7 +5,6 @@ import com.example.mscatalogo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> listById(@PathVariable(required = true)Integer id){
-            return ResponseEntity.ok().body(categoryService.buscarPorId(id).get());
+        return ResponseEntity.ok().body(categoryService.buscarPorId(id).get());
     }
 
     @PostMapping()

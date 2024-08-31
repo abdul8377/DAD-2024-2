@@ -13,6 +13,8 @@
 #springdoc.swagger-ui.enabled=true
 #springdoc.swagger-ui.path=/doc/swagger-ui.html
 
+server:
+  port: 8081
 spring:
   application:
     name: ms-catalogo-service

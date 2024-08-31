@@ -1,7 +1,7 @@
-package com.example.mscatalogo.service.impl;
+package com.example.mscatalogo.service.Impl;
 
 import com.example.mscatalogo.entity.Category;
-import com.example.mscatalogo.repository.CategoryRespository;
+import com.example.mscatalogo.repository.CategoryRepository;
 import com.example.mscatalogo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,29 +12,29 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
-    private CategoryRespository categoryRespository;
+    private CategoryRepository categoryRepository;
     @Override
     public List<Category> listar() {
-        return categoryRespository.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Optional<Category> buscarPorId(Integer id) {
-        return categoryRespository.findById(id);
+        return categoryRepository.findById(id);
     }
 
     @Override
     public Category guardar(Category category) {
-        return categoryRespository.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category actualizar(Category category) {
-        return categoryRespository.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-    categoryRespository.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 }
