@@ -8,13 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ms-config-server" />
+        <module name="ms-registry-server" />
         <module name="ms-product" />
         <module name="ms-catalogo" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ms-registry-server" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
