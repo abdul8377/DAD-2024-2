@@ -14,13 +14,9 @@ spring:
       discovery:
         locator:
           enable: true
-      
+
       routes:
-        - id: ms-catalogo-service
-          uri: lb://ms-catalogo-service
+        - id: ms-catalogo-service, ms-product-service
+          uri: lb://ms-catalogo-service, lb://ms-product-service
           predicates:
-            - Path=/Category/**
-        - id: ms-product-service
-          uri: lb://ms-product-service
-          predicates:
-            - Path=/Product/**
+            - Path=/Category/**, Path=/Product/**
