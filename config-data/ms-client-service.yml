@@ -2,7 +2,7 @@ server:
   port: 8082
 spring:
   application:
-    name: ms-product-service
+    name: ms-client-service
 
   jpa:
     hibernate:
@@ -10,7 +10,7 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/ms_product
+    url: jdbc:mysql://localhost:3306/ms_client
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver

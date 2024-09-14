@@ -10,17 +10,17 @@
         <module name="ms-config-server" />
         <module name="ms-gateway-server" />
         <module name="ms-registry-server" />
-        <module name="ms-product" />
         <module name="ms-catalogo" />
+        <module name="ms-client" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ms-catalogo" options="-parameters" />
+      <module name="ms-client" options="-parameters" />
       <module name="ms-config-server" options="-parameters" />
       <module name="ms-gateway-server" options="-parameters" />
-      <module name="ms-product" options="-parameters" />
       <module name="ms-registry-server" options="-parameters" />
     </option>
   </component>

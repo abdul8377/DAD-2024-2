@@ -1,7 +1,6 @@
 package com.example.mspedido.controller;
 
-import com.example.mscatalogo.entity.Category;
-import com.example.mscatalogo.service.CategoryService;
+
 import com.example.mspedido.entity.Order;
 import com.example.mspedido.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

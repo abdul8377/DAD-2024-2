@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-product-service
+    name: ms-client-service
   profiles:
     active: development
   config:
