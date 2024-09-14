@@ -1,7 +1,7 @@
-package com.example.msproduct.service;
+package com.example.msclient.service;
 
 
-import com.example.msproduct.entity.Client;
+import com.example.msclient.entity.Client;
 
 import java.util.List;
 import java.util.Optional;

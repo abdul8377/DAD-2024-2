@@ -1,8 +1,8 @@
-package com.example.msproduct.service.impl;
+package com.example.msclient.service.impl;
 
-import com.example.msproduct.entity.Client;
-import com.example.msproduct.repository.ClientRepository;
-import com.example.msproduct.service.ClientService;
+import com.example.msclient.entity.Client;
+import com.example.msclient.repository.ClientRepository;
+import com.example.msclient.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

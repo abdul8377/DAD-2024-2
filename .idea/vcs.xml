@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-catalogo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ms-client" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-config-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-gateway-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-pedido" vcs="Git" />

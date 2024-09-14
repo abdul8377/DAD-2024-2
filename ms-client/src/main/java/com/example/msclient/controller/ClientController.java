@@ -1,7 +1,7 @@
-package com.example.msproduct.controller;
+package com.example.msclient.controller;
 
-import com.example.msproduct.entity.Client;
-import com.example.msproduct.service.ClientService;
+import com.example.msclient.entity.Client;
+import com.example.msclient.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
