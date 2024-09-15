@@ -1,6 +1,6 @@
 
 server:
-  port: 8086
+  port: 8087
 spring:
   application:
     name: ms-pedido-service
@@ -16,7 +16,12 @@ spring:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui.html
 
 eureka:
   client:
