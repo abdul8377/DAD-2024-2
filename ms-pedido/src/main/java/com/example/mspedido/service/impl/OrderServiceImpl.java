@@ -3,6 +3,7 @@ package com.example.mspedido.service.impl;
 import com.example.mspedido.dto.ProductDto;
 import com.example.mspedido.entity.Order;
 import com.example.mspedido.entity.OrderDetail;
+import com.example.mspedido.feign.ClientFeign;
 import com.example.mspedido.feign.ProductFeign;
 import com.example.mspedido.repository.OrderRepository;
 import com.example.mspedido.service.OrderService;
@@ -19,25 +20,30 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductFeign productFeign;
+    @Autowired
+    private ClientFeign clientFeign;
 
     @Override
     public List<Order> list() {
         return orderRepository.findAll();
     }
 
+
     @Override
     public Optional<Order> findById(Integer id) {
         Optional<Order> order = orderRepository.findById(id);
-
-        for (OrderDetail orderDetail : order.get().getOrderDetails()) {
-            //ProductDto productDto = productFeign.listById(orderDetail.getProductId()).getBody();
-
+        order.get().setClientDto(clientFeign.listById(order.get().getClientId()).getBody());
+        /*for (OrderDetail orderDetail : order.get().getOrderDetails()) {
+            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
+        }*/
+        /*order.get().getOrderDetails().stream().forEach(orderDetail -> {
+            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
+        });*/
+        order.get().getOrderDetails().forEach(orderDetail -> {
             orderDetail.setProductDto(productFeign.listById(orderDetail.getProductId()).getBody());
-        }
-
-        return orderRepository.findById(id);
+        });
+        return order;
     }
-
     @Override
     public Order save(Order order) {
         return orderRepository.save(order);
@@ -47,7 +53,6 @@ public class OrderServiceImpl implements OrderService {
     public Order update(Order order) {
         return orderRepository.save(order);
     }
-
     @Override
     public void delete(Integer id) {
         orderRepository.deleteById(id);

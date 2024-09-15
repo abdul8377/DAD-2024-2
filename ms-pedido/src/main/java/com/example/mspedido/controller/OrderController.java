@@ -8,36 +8,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/Category")
+@RequestMapping("/Order")
 public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping()
-    public ResponseEntity<List<Order>> list(){
-        return ResponseEntity.ok().body(orderService.list());
+    @GetMapping
+    public ResponseEntity<List<Order>> getAll() {
+        return ResponseEntity.ok(orderService.list());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> listById(@PathVariable(required = true)Integer id){
-        return ResponseEntity.ok().body(orderService.findById(id).get());
+    public ResponseEntity<Optional<Order>> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(orderService.findById(id));
     }
 
-    @PostMapping()
-    public ResponseEntity<Order> save(@RequestBody Order order){
-        return ResponseEntity.ok().body(orderService.save(order));
+    @PostMapping
+    public ResponseEntity<Order> create(@RequestBody Order order) {
+        return ResponseEntity.ok(orderService.save(order));
     }
 
-    @PutMapping()
-    public ResponseEntity<Order> update(@RequestBody Order order){
-        return ResponseEntity.ok().body(orderService.save(order));
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> update(@PathVariable Integer id,
+                                        @RequestBody Order order) {
+        order.setId(id);
+        return ResponseEntity.ok(orderService.save(order));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteById(@PathVariable(required = true)Integer id){
+    public ResponseEntity<List<Order>> delete(@PathVariable Integer id) {
         orderService.delete(id);
-        return "elminacion correcta";
+        return ResponseEntity.ok(orderService.list());
     }
+
 }
