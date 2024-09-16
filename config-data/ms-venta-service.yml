@@ -1,9 +1,9 @@
 
 server:
-  port: 8088
+  port: 8089
 spring:
   application:
-    name: ms-pedido-service
+    name: ms-venta-service
 
   jpa:
     hibernate:
