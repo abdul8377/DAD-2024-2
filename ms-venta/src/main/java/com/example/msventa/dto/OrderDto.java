@@ -9,5 +9,6 @@ public class OrderDto {
     private Integer id;
     private String number;
     private Integer clientId;
+    private ClientDto clientDto;
     private List<OrderDetailDto> orderDetails;
 }

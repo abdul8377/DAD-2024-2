@@ -1,4 +1,4 @@
-package com.example.mspedido.dto;
+package com.example.msventa.dto;
 
 import lombok.Data;
 

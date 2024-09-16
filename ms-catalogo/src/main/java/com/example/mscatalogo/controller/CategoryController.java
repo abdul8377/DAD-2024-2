@@ -17,6 +17,7 @@ public class CategoryController {
 
     @GetMapping()
     public ResponseEntity<List<Category>> list(){
+
         return ResponseEntity.ok().body(categoryService.listar());
     }
 

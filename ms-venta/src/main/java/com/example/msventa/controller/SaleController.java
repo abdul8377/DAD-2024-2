@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/Sale")
 public class SaleController {
@@ -13,14 +15,20 @@ public class SaleController {
     @Autowired
     private SaleService saleService;
 
-    // Endpoint para procesar una venta
+    @GetMapping()
+    public ResponseEntity<List<Sale>> list() {
+        List<Sale> sales = saleService.listar();
+        return ResponseEntity.ok(sales);
+    }
+
+
     @PostMapping("/process/{orderId}")
     public ResponseEntity<Sale> processSale(@PathVariable Integer orderId, @RequestParam String paymentMethod) {
         Sale sale = saleService.processSale(orderId, paymentMethod);
         return ResponseEntity.ok(sale);
     }
 
-    // Endpoint para consultar una venta por ID
+
     @GetMapping("/{id}")
     public ResponseEntity<Sale> getSaleById(@PathVariable Integer id) {
         Sale sale = saleService.getSaleById(id);
