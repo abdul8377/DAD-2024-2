@@ -23,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> buscarPorId(Integer id) {
+
         return productRepository.findById(id);
     }
 
@@ -39,5 +40,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void eliminarPorId(Integer id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public void reduceStock(Integer productId, Integer amount) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if (product.getStock() < amount) {
+            throw new RuntimeException("Insufficient stock for product " + product.getName());
+        }
+
+        product.setStock(product.getStock() - amount);
+        productRepository.save(product);
     }
 }

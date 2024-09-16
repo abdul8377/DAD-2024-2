@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
             orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
         });*/
         order.get().getOrderDetails().forEach(orderDetail -> {
-            orderDetail.setProductDto(productFeign.listById(orderDetail.getProductId()).getBody());
+            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
         });
         return order;
     }

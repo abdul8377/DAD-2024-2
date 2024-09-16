@@ -11,6 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductFeign {
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> listById(@PathVariable Integer id);
-
+    public ResponseEntity<ProductDto> getById(@PathVariable Integer id);
 }

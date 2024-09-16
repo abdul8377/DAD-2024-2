@@ -6,5 +6,6 @@
     <mapping directory="$PROJECT_DIR$/ms-config-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-gateway-server" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-pedido" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ms-venta" vcs="Git" />
   </component>
 </project>

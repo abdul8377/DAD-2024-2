@@ -11,4 +11,5 @@ public interface ProductService {
     public Product guardar(Product product);
     public Product actualizar(Product product);
     public void eliminarPorId(Integer id);
+    void reduceStock(Integer productId, Integer amount);
 }

@@ -22,8 +22,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> listById(@PathVariable(required = true)Integer id){
-        return ResponseEntity.ok().body(productService.buscarPorId(id).get());
+    public ResponseEntity<Product> getById(@PathVariable Integer id){
+        return ResponseEntity.ok(productService.buscarPorId(id).get());
     }
 
     @PostMapping()
@@ -40,5 +40,11 @@ public class ProductController {
     public String deleteById(@PathVariable(required = true)Integer id){
         productService.eliminarPorId(id);
         return "elminacion correcta";
+    }
+
+    @PutMapping("/{id}/reduce-stock")
+    public ResponseEntity<Void> reduceStock(@PathVariable Integer id, @RequestParam Integer amount) {
+        productService.reduceStock(id, amount);
+        return ResponseEntity.ok().build();
     }
 }
