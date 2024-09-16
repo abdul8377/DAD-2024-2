@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DAD-2024-2.iml" filepath="$PROJECT_DIR$/.idea/DAD-2024-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ms-product/ms-product.iml" filepath="$PROJECT_DIR$/ms-product/ms-product.iml" />
     </modules>
   </component>
 </project>
