@@ -21,7 +21,17 @@ spring:
           uri: lb://ms-catalogo-service
           predicates:
             - Path=/Category/**
+            - Path=/Product/**
         - id: ms-client-service
           uri: lb://ms-client-service
           predicates:
             - Path=/Client/**
+
+        - id: ms-pedido-service
+          uri: lb://ms-pedido-service
+          predicates:
+            - Path=/Order/**
+        - id: ms-venta-service
+          uri: lb://ms-venta-service
+          predicates:
+            - Path=/Sale/**
