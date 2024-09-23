@@ -22,11 +22,15 @@ spring:
           predicates:
             - Path=/Category/**
             - Path=/Product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: catalogoServiceCircuitBreaker
+                fallbackUri: forward:/fallback/catalogo  # Ruta de fallback si el servicio falla
         - id: ms-client-service
           uri: lb://ms-client-service
           predicates:
             - Path=/Client/**
-
         - id: ms-pedido-service
           uri: lb://ms-pedido-service
           predicates:
