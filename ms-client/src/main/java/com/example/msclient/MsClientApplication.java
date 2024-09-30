@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class MsClientApplication {
+public class  MsClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsClientApplication.class, args);
