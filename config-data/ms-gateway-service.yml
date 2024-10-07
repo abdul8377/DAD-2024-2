@@ -35,3 +35,9 @@ spring:
           uri: lb://ms-venta-service
           predicates:
             - Path=/Sale/**
+          filters:
+            - AuthFilter
+        - id: ms-auth-service
+          uri: lb://ms-auth-service
+          predicates:
+            - Path=/auth/**
