@@ -22,6 +22,7 @@ spring:
           predicates:
             - Path=/Category/**
             - Path=/Product/**
+            
           filters:
             - AuthFilter
         - id: ms-client-service
@@ -36,11 +37,8 @@ spring:
           uri: lb://ms-venta-service
           predicates:
             - Path=/Sale/**
-          filters:
-            - AuthFilter
+
         - id: ms-auth-service
           uri: lb://ms-auth-service
           predicates:
             - Path=/auth/**
-          filters:
-            - AuthFilter
