@@ -10,11 +10,11 @@
         <option value="$PROJECT_DIR$/ms-product/pom.xml" />
         <option value="$PROJECT_DIR$/ms-gateway-server/pom.xml" />
         <option value="$PROJECT_DIR$/ms-pedido/pom.xml" />
-<<<<<<< HEAD
+
         <option value="$PROJECT_DIR$/ms-venta/pom.xml" />
-=======
+
         <option value="$PROJECT_DIR$/ms-client/pom.xml" />
->>>>>>> c0ce3c8bcbb4ea567f49eff6842b31b43025295c
+
       </list>
     </option>
   </component>
