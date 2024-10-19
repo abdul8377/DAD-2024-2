@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductFeign {
 
     @GetMapping("/{id}")
-    @CircuitBreaker(name = "productoListByIdCB", fallbackMethod = "productById")
+    @CircuitBreaker(name = "productListByIdCB", fallbackMethod = "productListById")
 
     public ResponseEntity<ProductDto> getById(@PathVariable Integer id);
     default ResponseEntity<ProductDto> productListById(Integer id, Exception e) {
