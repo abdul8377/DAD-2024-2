@@ -21,7 +21,7 @@ public class SaleServiceImpl implements SaleService {
     private SaleRepository saleRepository;
 
     @Autowired
-    private OrderFeign orderFeign; // Feign client to communicate with ms-pedido
+    private OrderFeign orderFeign;
 
     @Autowired
     private ClientFeign clientFeign;
