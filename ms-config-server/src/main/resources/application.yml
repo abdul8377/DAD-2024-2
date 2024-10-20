@@ -10,7 +10,7 @@ spring:
         git:
           uri: https://github.com/abdul8377/DAD-2024-2.git # ruta del repositorio git
           searchPaths: config-data
-          default-label: circuitBraker
+          default-label: security_JWT
   security:
     user:
       name: root
