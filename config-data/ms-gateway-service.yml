@@ -19,8 +19,22 @@ spring:
         - id: ms-catalogo-service
           uri: lb://ms-catalogo-service
           predicates:
-            - Path=/Category/**
+            - Path=/Category/**, /Product/**
+          filters:
+            - AuthFilter
         - id: ms-client-service
           uri: lb://ms-client-service
           predicates:
             - Path=/Client/**
+          filters:
+            - AuthFilter
+        - id: ms-pedido-service
+          uri: lb://ms-pedido-service
+          predicates:
+            - Path=/Order/**
+          filters:
+            - AuthFilter
+        - id: ms-auth-service
+          uri: lb://ms-auth-service
+          predicates:
+            - Path=/auth/**
