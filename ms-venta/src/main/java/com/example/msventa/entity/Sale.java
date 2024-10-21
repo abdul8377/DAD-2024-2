@@ -22,4 +22,5 @@ public class Sale {
 
     @Transient
     private OrderDto orderDto;
+
 }

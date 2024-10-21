@@ -47,4 +47,14 @@ public class ProductController {
         productService.reduceStock(id, amount);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String code) {
+
+        List<Product> results = productService.advancedSearch(name, category, code);
+        return ResponseEntity.ok(results);
+    }
 }

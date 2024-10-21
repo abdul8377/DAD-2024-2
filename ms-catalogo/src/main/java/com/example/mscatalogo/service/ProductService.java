@@ -12,4 +12,12 @@ public interface ProductService {
     public Product actualizar(Product product);
     public void eliminarPorId(Integer id);
     void reduceStock(Integer productId, Integer amount);
+
+    //metodos para los filtros de busqueada o busqueda avanzada
+
+    List<Product> searchByName(String name);
+    List<Product> searchByCategory(String category);
+    List<Product> searchByCode(String code);
+    List<Product> advancedSearch(String name, String category, String code);
+
 }

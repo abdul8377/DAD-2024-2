@@ -3,6 +3,7 @@ package com.example.msventa.service.Impl;
 import com.example.msventa.dto.ClientDto;
 import com.example.msventa.dto.OrderDto;
 import com.example.msventa.dto.ProductDto;
+import com.example.msventa.dto.ReportDto;
 import com.example.msventa.entity.Sale;
 import com.example.msventa.feign.ClientFeign;
 import com.example.msventa.feign.OrderFeign;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -99,5 +101,41 @@ public class SaleServiceImpl implements SaleService {
     public Sale getSaleById(Integer id) {
         return saleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sale not found"));
+    }
+
+    @Override
+    public List<Sale> getSalesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return saleRepository.findByDateRange(startDate, endDate);
+    }
+
+    @Override
+    public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate, Integer productId) {
+        List<Sale> sales = getSalesByDateRange(startDate, endDate);
+
+        // Filtrar por producto si se proporciona productId
+        if (productId != null) {
+            sales = filterSalesByProductId(sales, productId);
+        }
+
+        // Consolidar los datos en un DTO de reporte
+        Double totalAmount = sales.stream().mapToDouble(Sale::getTotalAmount).sum();
+        Integer totalSales = sales.size();
+
+        ReportDto ReportDto = new ReportDto();
+        ReportDto.setTotalAmount(totalAmount);
+        ReportDto.setTotalSales(totalSales);
+        ReportDto.setSales(sales);
+
+        return ReportDto;
+    }
+
+    // Filtrar ventas por productId utilizando los detalles del pedido de OrderDto
+    private List<Sale> filterSalesByProductId(List<Sale> sales, Integer productId) {
+        return sales.stream()
+                .filter(sale -> sale.getOrderDto() != null &&
+                        sale.getOrderDto().getOrderDetails() != null &&
+                        sale.getOrderDto().getOrderDetails().stream()
+                                .anyMatch(detail -> detail.getProductId().equals(productId)))
+                .collect(Collectors.toList());
     }
 }

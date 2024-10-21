@@ -59,4 +59,36 @@ public class ProductServiceImpl implements ProductService {
         product.setStock(product.getStock() - amount);
         productRepository.save(product);
     }
+
+//filtros de busqueda o busqueda avanzada
+//=================================================================================
+
+    @Override
+    public List<Product> searchByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Product> searchByCategory(String category) {
+        return productRepository.findByCategoryNameIgnoreCase(category);
+    }
+
+    @Override
+    public List<Product> searchByCode(String code) {
+        return productRepository.findByCode(code);
+    }
+
+    @Override
+    public List<Product> advancedSearch(String name, String category, String code) {
+        if (name != null && !name.isEmpty()) {
+            return searchByName(name);
+        }
+        if (category != null && !category.isEmpty()) {
+            return searchByCategory(category);
+        }
+        if (code != null && !code.isEmpty()) {
+            return searchByCode(code);
+        }
+        return productRepository.findAll();
+    }
 }
