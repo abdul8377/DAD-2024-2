@@ -34,8 +34,18 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Order>> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(orderService.findById(id));
+    public ResponseEntity<?> getById(@PathVariable Integer id) {
+        Optional<Order> orderOpt = orderService.findById(id);
+
+        // Verificar si el pedido existe
+        if (orderOpt.isEmpty()) {
+            // Devolver un código 404 si el pedido no se encuentra
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponseDto("Pedido no encontrado con ID: " + id));
+        }
+
+        // Devolver el pedido encontrado
+        return ResponseEntity.ok(orderOpt.get());
     }
 
     @PostMapping

@@ -60,8 +60,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
-//filtros de busqueda o busqueda avanzada
-//=================================================================================
+//filtros de busqueda o busqueda avanzad
 
     @Override
     public List<Product> searchByName(String name) {

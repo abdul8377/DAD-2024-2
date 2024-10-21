@@ -8,4 +8,5 @@ public class OrderDetailDto {
     private ProductDto productDto;
     private Double price;
     private Integer amount;
+    private Double totalPrice;
 }

@@ -21,10 +21,9 @@ public class ReportController {
     @GetMapping("/sales")
     public ResponseEntity<ReportDto> getSalesReport(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-            @RequestParam(value = "productId", required = false) Integer productId) {
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
-        ReportDto report = saleService.generateReport(startDate, endDate, productId);
+        ReportDto report = saleService.generateReport(startDate, endDate);
         return ResponseEntity.ok(report);
     }
 }

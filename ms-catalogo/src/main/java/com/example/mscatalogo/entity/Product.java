@@ -14,6 +14,7 @@ public class Product {
     private String description;
     private String code;
     private Integer stock;
+    private Double price;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

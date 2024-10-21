@@ -1,9 +1,6 @@
 package com.example.msventa.service.Impl;
 
-import com.example.msventa.dto.ClientDto;
-import com.example.msventa.dto.OrderDto;
-import com.example.msventa.dto.ProductDto;
-import com.example.msventa.dto.ReportDto;
+import com.example.msventa.dto.*;
 import com.example.msventa.entity.Sale;
 import com.example.msventa.feign.ClientFeign;
 import com.example.msventa.feign.OrderFeign;
@@ -70,22 +67,28 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public Sale processSale(Integer orderId, String paymentMethod) {
-
+        // Obtener los detalles del pedido desde ms-pedido
         OrderDto orderDto = orderFeign.getById(orderId).getBody();
 
+        if (orderDto == null) {
+            throw new RuntimeException("Pedido no encontrado para el ID: " + orderId);
+        }
 
+        // Calcular el monto total sumando los precios totales de los detalles del pedido
         Double totalAmount = orderDto.getOrderDetails().stream()
-                .mapToDouble(detail -> detail.getPrice() * detail.getAmount())
+                .mapToDouble(OrderDetailDto::getTotalPrice) // Sumar todos los `totalPrice` de los detalles
                 .sum();
 
+        // Calcular los impuestos (por ejemplo, 18%)
         Double taxAmount = totalAmount * 0.18;
         Double totalWithTax = totalAmount + taxAmount;
 
-
+        // Reducir el stock para cada producto en el microservicio ms-catalogo
         orderDto.getOrderDetails().forEach(detail -> {
             productFeign.reduceStock(detail.getProductId(), detail.getAmount());
         });
 
+        // Crear y guardar la venta
         Sale sale = new Sale();
         sale.setOrderId(orderId);
         sale.setTotalAmount(totalWithTax);
@@ -96,6 +99,7 @@ public class SaleServiceImpl implements SaleService {
 
         return saleRepository.save(sale);
     }
+
 
     @Override
     public Sale getSaleById(Integer id) {
@@ -109,33 +113,18 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate, Integer productId) {
+    public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate) {
         List<Sale> sales = getSalesByDateRange(startDate, endDate);
-
-        // Filtrar por producto si se proporciona productId
-        if (productId != null) {
-            sales = filterSalesByProductId(sales, productId);
-        }
 
         // Consolidar los datos en un DTO de reporte
         Double totalAmount = sales.stream().mapToDouble(Sale::getTotalAmount).sum();
         Integer totalSales = sales.size();
 
-        ReportDto ReportDto = new ReportDto();
-        ReportDto.setTotalAmount(totalAmount);
-        ReportDto.setTotalSales(totalSales);
-        ReportDto.setSales(sales);
+        ReportDto reportDto = new ReportDto();
+        reportDto.setTotalAmount(totalAmount);
+        reportDto.setTotalSales(totalSales);
+        reportDto.setSales(sales);
 
-        return ReportDto;
-    }
-
-    // Filtrar ventas por productId utilizando los detalles del pedido de OrderDto
-    private List<Sale> filterSalesByProductId(List<Sale> sales, Integer productId) {
-        return sales.stream()
-                .filter(sale -> sale.getOrderDto() != null &&
-                        sale.getOrderDto().getOrderDetails() != null &&
-                        sale.getOrderDto().getOrderDetails().stream()
-                                .anyMatch(detail -> detail.getProductId().equals(productId)))
-                .collect(Collectors.toList());
+        return reportDto;
     }
 }

@@ -12,5 +12,5 @@ public interface SaleService {
     public Sale getSaleById(Integer id);
 
     public List<Sale> getSalesByDateRange(LocalDateTime startDate, LocalDateTime endDate);
-    public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate, Integer productId);
+    public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate);
 }

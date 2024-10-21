@@ -1,5 +1,6 @@
 package com.example.mspedido.service.impl;
 
+import com.example.mspedido.dto.ClientDto;
 import com.example.mspedido.dto.ProductDto;
 import com.example.mspedido.entity.Order;
 import com.example.mspedido.entity.OrderDetail;
@@ -31,21 +32,51 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Optional<Order> findById(Integer id) {
-        Optional<Order> order = orderRepository.findById(id);
-        order.get().setClientDto(clientFeign.listById(order.get().getClientId()).getBody());
-        /*for (OrderDetail orderDetail : order.get().getOrderDetails()) {
-            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
-        }*/
-        /*order.get().getOrderDetails().stream().forEach(orderDetail -> {
-            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
-        });*/
-        order.get().getOrderDetails().forEach(orderDetail -> {
-            orderDetail.setProductDto(productFeign.getById(orderDetail.getProductId()).getBody());
+        Optional<Order> orderOpt = orderRepository.findById(id);
+
+        // Verificar que el pedido exista
+        if (orderOpt.isEmpty()) {
+            return Optional.empty(); // Devolver un Optional vacío si no se encuentra el pedido
+        }
+
+        Order order = orderOpt.get();
+
+        // Llamar a Feign para obtener el cliente y asignarlo al pedido
+        ClientDto clientDto = clientFeign.listById(order.getClientId()).getBody();
+        if (clientDto != null) {
+            order.setClientDto(clientDto);
+        }
+
+        // Asignar los detalles de productos al pedido
+        order.getOrderDetails().forEach(orderDetail -> {
+            ProductDto productDto = productFeign.getById(orderDetail.getProductId()).getBody();
+            if (productDto != null) {
+                orderDetail.setProductDto(productDto);
+            }
         });
-        return order;
+
+        return Optional.of(order);
     }
-    @Override
+
     public Order save(Order order) {
+        // Iterar sobre cada detalle del pedido y calcular el monto basado en el precio del producto y la cantidad
+        order.getOrderDetails().forEach(detail -> {
+            // Obtener el producto desde `ms-catalogo` utilizando Feign
+            ProductDto productDto = productFeign.getById(detail.getProductId()).getBody();
+
+            if (productDto != null) {
+                // Asignar el precio del producto al detalle del pedido
+                detail.setPrice(productDto.getPrice());
+
+                // Calcular el monto total del detalle como precio * cantidad (amount)
+                Double totalDetailPrice = detail.getPrice() * detail.getAmount();
+                detail.setTotalPrice(totalDetailPrice);
+            } else {
+                throw new RuntimeException("Producto no encontrado para el ID: " + detail.getProductId());
+            }
+        });
+
+        // Guardar el pedido con los detalles actualizados
         return orderRepository.save(order);
     }
 
