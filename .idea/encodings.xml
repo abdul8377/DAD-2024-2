@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-catalogo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-config-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-gateway-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-pedido/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-registry-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/DAD-2024-2/ms-venta/src/main/java" charset="UTF-8" />
+  </component>
+</project>
