@@ -51,7 +51,6 @@ public class SaleController {
             Sale sale = saleService.processSale(orderId, paymentMethod);
             return ResponseEntity.ok(sale);
         } catch (FeignException.NotFound e) {
-            // Manejar específicamente el caso de un pedido no encontrado
             String errorMessage = "Error: Pedido con ID " + orderId + " no encontrado en el microservicio de pedidos.";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDto(errorMessage));
         } catch (FeignException fe) {
