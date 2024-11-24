@@ -31,8 +31,9 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryService.guardar(category));
     }
 
-    @PutMapping()
-    public ResponseEntity<Category> update(@RequestBody Category category){
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> update(@PathVariable Integer id, @RequestBody Category category){
+        category.setId(id);
         return ResponseEntity.ok().body(categoryService.actualizar(category));
     }
 

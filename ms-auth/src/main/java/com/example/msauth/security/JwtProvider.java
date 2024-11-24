@@ -2,6 +2,8 @@ package com.example.msauth.security;
 
 
 import com.example.msauth.entity.AuthUser;
+import com.example.msauth.entity.Role;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 
 @Component
@@ -25,20 +28,17 @@ public class JwtProvider    {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-
-    public String createToken(AuthUser authUser) {
-        Map<String, Object> claims = new HashMap<>();
-        claims = Jwts.claims().setSubject(authUser.getUserName());
-        claims.put("id", authUser.getId());
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + 3600000);
+    public String generateToken(AuthUser user) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(exp)
+                .setSubject(user.getUserName())
+                .claim("role", "ROLE_" + user.getRole()) // Agregar el prefijo ROLE_
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hora
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
+
+
 
 
     public boolean validate(String token) {
@@ -57,5 +57,12 @@ public class JwtProvider    {
         }catch (Exception e) {
             return "bad token";
         }
+    }
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
+        return claimsResolver.apply(claims);
     }
 }

@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -22,4 +19,8 @@ public class AuthUser {
     private Integer id;
     private String userName;
     private String password;
+    @Enumerated(EnumType.STRING) // Define el rol como un enum
+    @Column(nullable = false)
+    private Role role; // Campo para distinguir entre ADMIN y CLIENT
 }
+

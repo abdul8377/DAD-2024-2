@@ -6,7 +6,8 @@ export default [
         path     : '',
         component: SetupComponent,
         children: [
-            {path: 'client', loadChildren: () => import('./client/client.routers')},
+            {path: 'Client', loadChildren: () => import('./client/client.routers')},
+            {path: 'Category', loadChildren: () => import('./category/category.routers')},
             {path: 'role', loadChildren: () => import('./roles/roles.routers')},
             {path: 'users', loadChildren: () => import('./user/users-routers')},
             {path: 'user', loadChildren: () => import('./user/users-routers')},
