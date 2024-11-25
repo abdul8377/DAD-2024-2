@@ -8,4 +8,6 @@ export class CategoryService extends EntityDataService<any> {
     constructor(protected override httpClient: HttpClient) {
         super(httpClient, END_POINTS.setup.category);
     }
+
+
 }

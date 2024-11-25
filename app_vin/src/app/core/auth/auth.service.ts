@@ -180,7 +180,4 @@ export class AuthService
         // If the access token exists, and it didn't expire, sign in using it
         // return this.signInUsingToken();
     }
-    isAuthenticated(): boolean {
-        return !!localStorage.getItem('token');
-    }
 }

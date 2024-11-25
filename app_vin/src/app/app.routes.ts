@@ -60,7 +60,6 @@ export const appRoutes: Route[] = [
                 loadChildren: () =>
                     import('app/modules/auth/sign-up/sign-up.routes'),
             },
-
         ],
     },
     // {

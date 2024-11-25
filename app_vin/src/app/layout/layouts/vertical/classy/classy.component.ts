@@ -150,10 +150,10 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
                         title: 'Setup Cliente',
                         type: 'basic',
                         icon: 'heroicons_outline:chart-pie',
-                        link: '/homeScreen/setup/Client',
+                        link: '/homeScreen/setup/client',
                     },
                     {
-                        id: 'SetupClient',
+                        id: 'SetupCategory',
                         title: 'Setup Category',
                         type: 'basic',
                         icon: 'heroicons_outline:chart-pie',

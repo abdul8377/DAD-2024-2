@@ -18,6 +18,7 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtProvider jwtProvider;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -26,10 +27,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null && jwtProvider.validate(token)) {
             String username = jwtProvider.getUserNameFromToken(token);
-            String role = jwtProvider.extractClaim(token, claims -> claims.get("role", String.class));
+            String role = jwtProvider.extractClaim(token, claims -> claims.get("role", String.class)); // Rol sin prefijo
 
-            // Configurar las autoridades para Spring Security
-            List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role)); // Usa ROLE_ADMIN si es necesario
+            // Configurar las autoridades sin prefijo "ROLE_"
+            List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(username, null, authorities);

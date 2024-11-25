@@ -31,13 +31,12 @@ public class JwtProvider    {
     public String generateToken(AuthUser user) {
         return Jwts.builder()
                 .setSubject(user.getUserName())
-                .claim("role", "ROLE_" + user.getRole()) // Agregar el prefijo ROLE_
+                .claim("role", user.getRole()) // Guardar directamente el rol sin prefijo
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hora
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
-
 
 
 

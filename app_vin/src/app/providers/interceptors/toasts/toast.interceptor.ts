@@ -1,4 +1,4 @@
-import { HttpEvent, HttpEventType, HttpInterceptorFn } from '@angular/common/http';
+import {HttpEvent, HttpEventType, HttpInterceptorFn} from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import {inject} from "@angular/core";
 import {catchError, tap, throwError} from "rxjs";
