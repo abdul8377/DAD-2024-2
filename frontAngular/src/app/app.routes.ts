@@ -5,18 +5,11 @@ import {ClientDashboardComponent} from './domains/components/client-dashboard/cl
 import {ProductListComponent} from './domains/components/product-list/product-list.component';
 import {CartComponent} from './domains/components/client-dashboard/cart/cart.component';
 import {authGuard} from './service/auth.guard';
+import {ClientProductsComponent} from './domains/components/client-dashboard/client-products/client-products.component';
 
 
 export const routes: Routes = [
-  {
-    path: 'Products',
-    loadComponent: () =>
-      import('./domains/components/product-list/product-list.component').then(
-        (m) => m.ProductListComponent
-      ),
-    canActivate: [authGuard],
-    data: { role: 'CLIENT' }, // Solo CLIENT puede acceder
-  },
+
 
   {
     path: 'client-dashboard',
@@ -25,7 +18,16 @@ export const routes: Routes = [
         (m) => m.ClientDashboardComponent
       ),
     canActivate: [authGuard],
-    data: { role: 'CLIENT' },
+    data: { role: 'CLIENT' }, // Asegúrate de pasar el rol aquí
+    children: [
+      {
+        path: 'Product',
+        loadComponent: () =>
+          import('./domains/components/client-dashboard/client-products/client-products.component').then(
+            (m) => m.ClientProductsComponent
+          ),
+      },
+    ],
   },
   {
     path: 'admin-dashboard',
@@ -34,7 +36,15 @@ export const routes: Routes = [
         (m) => m.AdminDashboardComponent
       ),
     canActivate: [authGuard],
-    data: { role: 'ADMIN' },
+    children: [
+      {
+        path: 'Product',
+        loadComponent: () =>
+          import('./domains/components/admin-dashboard/admin-products/admin-products.component').then(
+            (m) => m.AdminProductsComponent
+          ),
+      },
+    ],
   },
   {
     path: 'auth-login',

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -68,4 +69,16 @@ public class SaleController {
         Sale sale = saleService.getSaleById(id);
         return ResponseEntity.ok(sale);
     }
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelSale(@PathVariable Integer id) {
+        try {
+            saleService.cancelSale(id);
+            return ResponseEntity.ok().body("Sale canceled successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Collections.singletonMap("error", e.getMessage()));
+        }
+    }
+
+
 }

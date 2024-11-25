@@ -38,7 +38,7 @@ export class AuthLoginComponent {
         console.log('Rol del usuario:', userRole); // Log para verificar el rol
 
         if (userRole === 'CLIENT') {
-          this.router.navigate(['/Products']); // Redirige a la lista de productos
+          this.router.navigate(['/client-dashboard/Product']); // Redirige a la lista de productos
         } else if (userRole === 'ADMIN') {
           this.router.navigate(['/admin-dashboard']); // Redirige al dashboard de admin
         } else {

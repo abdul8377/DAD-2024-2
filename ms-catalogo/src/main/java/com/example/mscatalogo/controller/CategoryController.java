@@ -42,4 +42,5 @@ public class CategoryController {
         categoryService.eliminarPorId(id);
         return "elminacion correcta";
     }
+
 }

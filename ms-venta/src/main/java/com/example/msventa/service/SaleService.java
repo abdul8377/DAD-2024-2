@@ -13,4 +13,6 @@ public interface SaleService {
 
     public List<Sale> getSalesByDateRange(LocalDateTime startDate, LocalDateTime endDate);
     public ReportDto generateReport(LocalDateTime startDate, LocalDateTime endDate);
+
+    public void cancelSale(Integer saleId);
 }

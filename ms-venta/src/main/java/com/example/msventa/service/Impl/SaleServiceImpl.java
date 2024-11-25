@@ -7,6 +7,8 @@ import com.example.msventa.feign.OrderFeign;
 import com.example.msventa.feign.ProductFeign;
 import com.example.msventa.repository.SaleRepository;
 import com.example.msventa.service.SaleService;
+import feign.FeignException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,5 +128,37 @@ public class SaleServiceImpl implements SaleService {
         reportDto.setSales(sales);
 
         return reportDto;
+    }
+    @Override
+    @Transactional
+    public void cancelSale(Integer saleId) {
+        Sale sale = saleRepository.findById(saleId)
+                .orElseThrow(() -> new RuntimeException("Sale not found"));
+
+        if (!sale.getStatus().equalsIgnoreCase("paid")) {
+            throw new RuntimeException("Only paid sales can be canceled");
+        }
+
+        OrderDto orderDto = orderFeign.getById(sale.getOrderId()).getBody();
+        if (orderDto == null) {
+            throw new RuntimeException("Order not found for the given Sale");
+        }
+
+        sale.setOrderDto(orderDto);
+
+        // Devolver el stock de los productos
+        sale.getOrderDto().getOrderDetails().forEach(orderDetail -> {
+            try {
+                productFeign.increaseStock(orderDetail.getProductId(), orderDetail.getAmount());
+            } catch (FeignException.NotFound e) {
+                // Manejo de producto no encontrado
+                System.out.println("Warning: Product not found in catalog service for Product ID " + orderDetail.getProductId());
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating product stock: " + e.getMessage());
+            }
+        });
+
+        sale.setStatus("canceled");
+        saleRepository.save(sale);
     }
 }

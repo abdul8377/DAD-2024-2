@@ -57,4 +57,14 @@ public class ProductController {
         List<Product> results = productService.advancedSearch(name, category, code);
         return ResponseEntity.ok(results);
     }
+
+    @PutMapping("/{id}/increase-stock")
+    public ResponseEntity<Void> increaseStock(@PathVariable Integer id, @RequestParam Integer amount) {
+        Product product = productService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setStock(product.getStock() + amount);
+        productService.actualizar(product);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -16,4 +16,7 @@ public interface ProductFeign {
 
     @PutMapping("/{productId}/reduce-stock")
     ResponseEntity<Void> reduceStock(@PathVariable("productId") Integer productId, @RequestParam Integer amount);
+
+    @PutMapping("/{id}/increase-stock")
+    ResponseEntity<Void> increaseStock(@PathVariable("id") Integer id, @RequestParam("amount") Integer amount);
 }

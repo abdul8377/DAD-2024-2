@@ -12,3 +12,7 @@ export interface Product {
     name: string;
   };
 }
+export interface ProductItemCart {
+  product: Product;
+  quantity: number;
+}
