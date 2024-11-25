@@ -60,8 +60,12 @@ public class ProductController {
 
     @PutMapping("/{id}/increase-stock")
     public ResponseEntity<Void> increaseStock(@PathVariable Integer id, @RequestParam Integer amount) {
+        System.out.println("Increase stock called for Product ID: " + id + " with Amount: " + amount);
+
         Product product = productService.buscarPorId(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        System.out.println("Product found: " + product);
 
         product.setStock(product.getStock() + amount);
         productService.actualizar(product);

@@ -4,6 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app_vin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ms-auth" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/signal-store" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sisCrudBolsa" vcs="Git" />
   </component>
 </project>

@@ -11,6 +11,7 @@ export const END_POINTS = {
   },
   setup: {
       category: 'Category',
+      product: 'Product',
     role: 'rol',
       client: 'cliente',
     accesRole: 'acceso-rol',

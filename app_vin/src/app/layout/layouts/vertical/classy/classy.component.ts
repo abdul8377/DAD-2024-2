@@ -150,7 +150,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
                         title: 'Setup Cliente',
                         type: 'basic',
                         icon: 'heroicons_outline:chart-pie',
-                        link: '/homeScreen/setup/client',
+                        link: '/homeScreen/setup/Client',
                     },
                     {
                         id: 'SetupCategory',
@@ -159,6 +159,21 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
                         icon: 'heroicons_outline:chart-pie',
                         link: '/homeScreen/setup/Category',
                     },
+                    {
+                        id: 'SetupCategory',
+                        title: 'Setup Product',
+                        type: 'basic',
+                        icon: 'heroicons_outline:chart-pie',
+                        link: '/homeScreen/setup/Product',
+                    },
+                    {
+                        id: 'SetupSale',
+                        title: 'Setup ventas',
+                        type: 'basic',
+                        icon: 'heroicons_outline:chart-pie',
+                        link: '/homeScreen/setup/Sale',
+                    },
+
                 ],
             },
 
